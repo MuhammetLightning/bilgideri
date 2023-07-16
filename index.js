@@ -4,6 +4,7 @@ import router from "./routes/appRouter.js";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
+import corsOptions from "./config/corsOptions.js";
 
 const app = express();
 dotenv.config();
@@ -22,7 +23,7 @@ mongoose.connection.on("disconnected", () => {
 });
 
 //middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/leathers", router);
@@ -46,7 +47,6 @@ let port = process.env.PORT;
 if (port == null || port == "") {
   port = 8800;
 }
-
 
 app.listen(port, () => {
   connect();
