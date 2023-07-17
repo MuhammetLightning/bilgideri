@@ -4,7 +4,7 @@ import router from "./routes/appRouter.js";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import corsOptions from "./config/corsOptions.js";
+// import corsOptions from "./config/corsOptions.js";
 
 const app = express();
 dotenv.config();
@@ -23,7 +23,13 @@ mongoose.connection.on("disconnected", () => {
 });
 
 //middlewares
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: "https://bilgideri-f.onrender.com",
+    optionsSuccessStatus: 200, // istek başarı durumu
+    credentials: true, // kimlik bilgilerinin paylaşılmasını sağlar
+  })
+);
 app.use(express.json());
 
 app.use("/api/leathers", router);
